@@ -1,12 +1,15 @@
 package com.caregrid.healtcare.patient.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,9 +41,16 @@ public class Patient {
 	private LocalDate lastVisitDate;
 	private LocalDate nextVisitDate;
 	private LocalDate nextHealthReminders;
-	private List<MedicalHistory>medicalHistories;
-	private List<Prescriptions>prescriptions;
-	private List<TestResult>testResults;
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<MedicalHistory> medicalHistories = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Prescriptions> prescriptions = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<TestResult> testResults = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "patient",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<DoctorPatientMapping>doctorMapping;
 	
 	
