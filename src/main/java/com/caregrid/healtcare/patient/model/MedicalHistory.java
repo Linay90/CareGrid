@@ -12,11 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-@Entity
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class MedicalHistory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +21,7 @@ public class MedicalHistory {
 	private String treatmentDescription;
 	private boolean isChronic;
 	@ManyToOne
-	@JoinColumn()
+	@JoinColumn(name="patient_id")
 	private Patient patient;
 
 }
